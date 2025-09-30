@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accelerate — About</title>
+<meta name="description" content="Accelerate is a free study platform with fast flashcards and a straightforward CSV deck builder.">
+<style>
+  :root{
+    --bg:#ffffff;
+    --ink:#0f172a;
+    --muted:#475569;
+    --line:#e2e8f0;
+    --brand:#155eef;
+    --brand-ink:#ffffff;
+    --panel:#f8fafc;
+  }
+  [data-theme="dark"]{
+    --bg:#0b0c10;
+    --ink:#e5e7eb;
+    --muted:#a3aab7;
+    --line:#1f2430;
+    --brand:#5aa9ff;
+    --brand-ink:#0b0c10;
+    --panel:#111318;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font:16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+  }
+  .wrap{max-width:980px;margin:0 auto;padding:28px 16px}
+  header.site{border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+  .logo{width:28px;height:28px;border-radius:6px;display:inline-grid;place-items:center;
+        background:var(--brand);color:var(--brand-ink);font-weight:900}
+  h1{font-size:clamp(26px,3.4vw,40px);line-height:1.15;margin:6px 0 4px}
+  p.lead{color:var(--muted);max-width:60ch;margin:6px 0 0}
+  h2{font-size:clamp(18px,2.6vw,24px);margin:22px 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+  code,.kbd{font-family:ui-monospace, Menlo, Consolas, "Liberation Mono", monospace}
+  .kbd{border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  pre{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+  a{color:var(--brand);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .btn{display:inline-block;padding:10px 14px;border:1px solid var(--brand);color:var(--brand);
+       border-radius:8px;font-weight:700;text-decoration:none}
+  .btn.primary{background:var(--brand);color:var(--brand-ink)}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+  footer.site{margin-top:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem;padding:16px 0}
+  .notice{font-size:.95rem;color:var(--muted)}
+  .toggle{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">A</div>
+        <div>
+          <h1>Accelerate</h1>
+          <p class="lead">A free study platform by Cameron Williams.</p>
+        </div>
+      </div>
+      <button id="themeBtn" class="toggle" aria-label="Toggle light/dark">Appearance: <span id="themeState">Auto</span></button>
+    </header>
+
+    <main>
+      <section>
+        <h2>Free to use</h2>
+        <p>Accelerate is free. No accounts, no paywalls, and no ads! It's a clean, focused study experience. Open it on any modern browser and start learning.</p>
+        <div class="btnrow">
+          <a class="btn primary" href="https://accelerate.ariaavis.com/index.html" target="_blank" rel="noopener">Open Accelerate</a>
+          <a class="btn" href="https://accelerate.ariaavis.com/csv_maker.html" target="_blank" rel="noopener">Open CSV Deck Builder</a>
+        </div>
+        <p class="notice">Links above go to the official site.</p>
+      </section>
+
+      <section>
+        <h2>What you can do</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Flashcards from CSV</h3>
+            <p>Upload a two‑column CSV (<code>term,definition</code>) and start studying immediately.</p>
+          </div>
+          <div class="card">
+            <h3>Flexible content</h3>
+            <p>Each entry can be text or a media link (image / YouTube). Cards will display the right format automatically.</p>
+          </div>
+          <div class="card">
+            <h3>Professional UI</h3>
+            <p>Clean layout, keyboard support, and appearance that follows system settings.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>CSV format</h2>
+        <pre><code>term,definition
+Heap,A specialized tree-based data structure
+Quicksort,Divide-and-conquer sorting algorithm
+</code></pre>
+        <p class="notice">Only two columns are required: <code>term</code> and <code>definition</code>. If a cell contains a media link instead of text, the card will render it.</p>
+      </section>
+
+      <section>
+        <h2>How to use Accelerate</h2>
+        <ol>
+          <li>Open Accelerate.</li>
+          <li>Upload your CSV or build one with the CSV Deck Builder.</li>
+          <li>Study using the keyboard: <span class="kbd">Space</span> to flip, <span class="kbd">←</span>/<span class="kbd">→</span> to navigate.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="site">
+      © <span id="year"></span> Accelerate. All rights reserved.
+    </footer>
+  </div>
+
+<script>
+  // Theme toggle: auto (follow system), light, dark
+  (function(){
+    const root = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    const state = document.getElementById('themeState');
+    let current = localStorage.getItem('acc-theme') || 'auto';
+
+    function apply(theme){
+      if(theme === 'auto'){
+        root.removeAttribute('data-theme');
+        state.textContent = 'Auto';
+      }else{
+        root.setAttribute('data-theme', theme);
+        state.textContent = theme[0].toUpperCase() + theme.slice(1);
+      }
+    }
+    function next(theme){
+      return theme === 'auto' ? 'light' : theme === 'light' ? 'dark' : 'auto';
+    }
+    apply(current);
+    btn.addEventListener('click', ()=>{ current = next(current); localStorage.setItem('acc-theme', current); apply(current); });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  })();
+</script>
+</body>
+</html>
